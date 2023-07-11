@@ -3,27 +3,21 @@
 // MUI Drawer component
 // https://mui.com/material-ui/react-drawer/#system-MiniDrawer.js
 
-import * as React from 'react';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 
-import ListChunk from './drawer/ListChunk.component.jsx';
+import ListChunk from './ListChunk.component.jsx';
 
 const drawerWidth = 240;
 
@@ -92,17 +86,24 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function MiniDrawer() {
+export default function MiniDrawer({
+  // anchor,
+  iconStyle,
+  listItemStyle,
+  listItemIconStyle,
+  open,
+  handleDrawerOpen,
+  handleDrawerClose,
+
+  content,
+}) {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  const sections = Object.keys(content);
+  const subSections = {};
+  sections.forEach((section) => {
+    subSections[section] = Object.keys(content[section]);
+  });
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -114,10 +115,7 @@ export default function MiniDrawer() {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
+            sx={iconStyle}
           >
             <MenuIcon />
           </IconButton>
@@ -136,30 +134,21 @@ export default function MiniDrawer() {
         <Divider />
         <ListChunk />
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
+        {/* {sections.map((section, index) => (
+          <ListChunk key={index} section={section} subSections={subSections} />
+        ))} */}
+        {/* <List>
+          {sections.map((text, index) => (
+            <ListItem key={text} disablePadding sx={listItemStyle}>
+              <ListItemButton sx={iconStyle}>
+                <ListItemIcon sx={listItemIconStyle}>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />

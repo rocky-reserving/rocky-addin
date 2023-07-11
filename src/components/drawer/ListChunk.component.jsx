@@ -4,42 +4,46 @@ import { ListItemButton } from '@mui/material';
 import { ListItemIcon } from '@mui/material';
 import { ListItemText } from '@mui/material';
 
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-
-import listSection from './listSection.data.jsx';
-
 const ListChunk = ({
-  sectionID,
+  section,
+  subSections,
   buttonMinHeight = 48,
   buttonPadding = 2.5,
   iconMinWidth = 0,
   open = false,
   text = 'hi',
 }) => {
-  // const { title, menu } = listSection[sectionID];
+  const listItemStyle = { display: 'block' };
+
+  const listItemButtonStyle = {
+    minHeight: { buttonMinHeight },
+    justifyContent: open ? 'initial' : 'center',
+    px: { buttonPadding },
+  };
+
+  const listItemIconStyle = {
+    minWidth: { iconMinWidth },
+    mr: open ? 3 : 'auto',
+    justifyContent: 'center',
+  };
+
+  const listItemTextStyle = { opacity: open ? 1 : 0 };
+
   return (
     <List>
-      <ListItem disablePadding sx={{ display: 'block' }}>
-        <ListItemButton
-          sx={{
-            minHeight: { buttonMinHeight },
-            justifyContent: open ? 'initial' : 'center',
-            px: { buttonPadding },
-          }}
+      {section[subSections].map((item, index) => (
+        <ListItem
+          disablePadding
+          sx={listItemStyle}
+          key={index}
+          onClick={item.action}
         >
-          <ListItemIcon
-            sx={{
-              minWidth: { iconMinWidth },
-              mr: open ? 3 : 'auto',
-              justifyContent: 'center',
-            }}
-          >
-            {/* {icon} */}
-            <AddCircleOutlineRoundedIcon />
-          </ListItemIcon>
-          <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-        </ListItemButton>
-      </ListItem>
+          <ListItemButton sx={listItemButtonStyle}>
+            <ListItemIcon sx={listItemIconStyle}>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.name} sx={listItemTextStyle} />
+          </ListItemButton>
+        </ListItem>
+      ))}
     </List>
   );
 };

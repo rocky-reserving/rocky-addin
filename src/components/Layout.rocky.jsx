@@ -1,10 +1,10 @@
-import MiniDrawer from './Drawer.component';
-import Footer from './Footer.component';
+import Drawer from './Drawer.rocky';
+import Footer from './Footer.rocky';
 
 const Layout = ({ children }) => {
   return (
     <div>
-      <MiniDrawer />
+      <Drawer />
       {children}
       <Footer />
     </div>

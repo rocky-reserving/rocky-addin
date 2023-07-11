@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Layout from '@/components/Layout.component';
+import Layout from '@/components/Layout.rocky';
 import CodeBox from '@/components/template/CodeBox.component';
 import BottomButtons from '@/components/template/BottomButtons.component';
 import VercelLogo from '@/components/template/VercelLogo.component';
