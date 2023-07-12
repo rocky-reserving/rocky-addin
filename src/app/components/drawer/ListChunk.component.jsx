@@ -31,7 +31,7 @@ const ListChunk = ({
 
   return (
     <List>
-      {section[subSections].map((item, index) => (
+      {/* {section[subSections].map((item, index) => (
         <ListItem
           disablePadding
           sx={listItemStyle}
@@ -43,7 +43,7 @@ const ListChunk = ({
             <ListItemText primary={item.name} sx={listItemTextStyle} />
           </ListItemButton>
         </ListItem>
-      ))}
+      ))} */}
     </List>
   );
 };

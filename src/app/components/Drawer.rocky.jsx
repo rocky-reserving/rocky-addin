@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import MiniDrawer from './drawer/Drawer.component';
-import drawerData from '@/data/drawer.data';
+import drawerData from '@/app/data/drawer.data';
 
 const Drawer = () => {
   const [open, setOpen] = useState(false);
